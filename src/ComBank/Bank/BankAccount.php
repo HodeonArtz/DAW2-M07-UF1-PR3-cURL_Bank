@@ -21,9 +21,12 @@ use ComBank\Transactions\Contracts\BankTransactionInterface;
 class BankAccount implements BackAccountInterface
 {
   use AmountValidationTrait;
-  private float $balance;
-  private bool $status = true;
-  private OverdraftInterface $overdraft;
+  protected float $balance;
+  protected bool $status = true;
+  protected OverdraftInterface $overdraft;
+  
+  protected $PersonHolder = null;
+
 
   public function __construct(float $balance = 0) {
     $this->balance = $balance;
