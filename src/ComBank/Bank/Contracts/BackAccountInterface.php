@@ -14,6 +14,8 @@ use ComBank\Transactions\Contracts\BankTransactionInterface;
 
 interface BackAccountInterface
 {
+    const CURRENCY_EUR = "€";
+    const CURRENCY_USD = "$";
     const STATUS_OPEN = 'OPEN';
     const STATUS_CLOSED = 'CLOSED';
 
