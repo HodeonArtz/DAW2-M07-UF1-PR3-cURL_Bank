@@ -2,8 +2,8 @@
 
 namespace ComBank\Persons;
 
-use Combank\Exceptions\InvalidEmailException;
 use Combank\Support\Traits\ApiTrait;
+use ComBank\Exceptions\InvalidEmailException;
 
 class Person
 {

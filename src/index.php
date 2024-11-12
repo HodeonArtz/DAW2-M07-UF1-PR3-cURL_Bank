@@ -8,6 +8,7 @@
  */
 
 use ComBank\Bank\BankAccount;
+use ComBank\Persons\Person;
 use ComBank\Bank\InternationalBankAccount;
 use ComBank\OverdraftStrategy\SilverOverdraft;
 use ComBank\Transactions\DepositTransaction;
@@ -15,6 +16,7 @@ use ComBank\Transactions\WithdrawTransaction;
 use ComBank\Exceptions\BankAccountException;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
+use ComBank\Exceptions\InvalidEmailException;
 use ComBank\Exceptions\ZeroAmountException;
 
 require_once 'bootstrap.php';
@@ -123,4 +125,17 @@ pl('--------- CURRENCY API TEST --------');
 $currenciesBankAccount = new InternationalBankAccount(100);
 pl("Current international balance: " . $currenciesBankAccount->getBalance() .  "€");
 pl("Currency: " . $currenciesBankAccount->getConvertedCurrency());
-pl( "Converted balance (to USD): ".$currenciesBankAccount->getConvertedBalance() . "$");
+// pl( "Converted balance (to USD): ".$currenciesBankAccount->getConvertedBalance() . "$");
+
+pl('--------- EMAIL API TEST --------');
+pl("Creating a person with next data: name = Rasmus, idCard = 481J, email = st2021096@365.stucom.com");
+$emailPerson1 =  new Person("Rasmus", "481J", "st2021096@365.stucom.com");
+pl("New Person: name = {$emailPerson1->getName()}, idCard = {$emailPerson1->getIdCard()}, email = {$emailPerson1->getEmail()}");
+
+pl("Creating a person with next data: name = Lerdorf, idCard = 482J, email = st2021096@@stucom.com");
+try {
+  $emailPerson2 =  new Person("Rasmus", "482J", "st2021096@@stucom.com");
+  pl("New Person: name = {$emailPerson1->getName()}, idCard = {$emailPerson1->getIdCard()}, email = {$emailPerson1->getEmail()}");
+} catch (InvalidEmailException $e) {
+  pl("Invalid e-mail: {$e->getMessage()}");
+}

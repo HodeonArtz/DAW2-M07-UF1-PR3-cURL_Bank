@@ -22,7 +22,7 @@ trait ApiTrait
 
     $data = json_decode($response, true);
 
-    return $data["format"] && $data["disposable"] && $data["dns"];
+    return $data["format"] && !$data["disposable"] && $data["dns"];
   }
   public function convertBalance(float $amount): float{
     $url = "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_oiQaP2LBwpdAF6mWGxHzmCBHG31JxnAlVZvuWdpH&currencies=USD&base_currency=EUR";

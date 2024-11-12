@@ -9,6 +9,6 @@
 
 class InvalidEmailException extends BaseExceptions
 {
-    protected $errorCode = 400;
+    protected $errorCode = 500;
     protected $errorLabel = 'InvalidEmailException';
 }
