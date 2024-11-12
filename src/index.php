@@ -8,6 +8,7 @@
  */
 
 use ComBank\Bank\BankAccount;
+use ComBank\Bank\InternationalBankAccount;
 use ComBank\OverdraftStrategy\SilverOverdraft;
 use ComBank\Transactions\DepositTransaction;
 use ComBank\Transactions\WithdrawTransaction;
@@ -116,3 +117,10 @@ try {
 } catch (BankAccountException $e) {
     pl("Error: ".$e->getMessage());
 }
+
+pl('--------- CURRENCY API TEST --------');
+
+$currenciesBankAccount = new InternationalBankAccount(100);
+pl("Current international balance: " . $currenciesBankAccount->getBalance() .  "€");
+pl("Currency: " . $currenciesBankAccount->getConvertedCurrency());
+pl( "Converted balance (to USD): ".$currenciesBankAccount->getConvertedBalance() . "$");
