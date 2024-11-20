@@ -15,7 +15,9 @@ use ComBank\Exceptions\FraudException;
 
 class WithdrawTransaction extends BaseTransaction implements BankTransactionInterface 
 {
+
   public function __construct(float $amount) {
+    $this->date = date(BankTransactionInterface::DATETIME_FORMAT);
     $this->validateAmount($amount);
     $this->amount = $amount;
     if(!$this->detectFraud($this)){
@@ -45,5 +47,8 @@ class WithdrawTransaction extends BaseTransaction implements BankTransactionInte
 
     public function getAmount(): float{
       return $this->amount;
+    }
+    public function getDateInfo(): string{
+      return $this->date;
     }
 }

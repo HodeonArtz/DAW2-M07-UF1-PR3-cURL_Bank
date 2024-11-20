@@ -18,4 +18,5 @@ abstract class BaseTransaction
   use AmountValidationTrait;
   use ApiTrait;
   protected float $amount;
+  protected string $date;
 }

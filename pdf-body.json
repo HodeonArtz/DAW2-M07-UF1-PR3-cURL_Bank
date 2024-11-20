@@ -2,11 +2,13 @@
   "template": {
     "id": "1262536",
     "data": {
-      "Name": "Glen Marti",
-      "DueDate": "2024-11-20"
+      "type": "TRANSACTION",
+      "amount": 0,
+      "datetime": "Wed Nov 20 2024 17:02:21 GMT+0100",
+      "isFraud": false
     }
   },
   "format": "pdf",
   "output": "url",
-  "name": "Certificate Example"
+  "name": "STUBANK1"
 }

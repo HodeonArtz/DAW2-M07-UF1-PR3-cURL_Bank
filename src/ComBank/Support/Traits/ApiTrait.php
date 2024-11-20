@@ -77,4 +77,43 @@ trait ApiTrait
     return false;
   }
   
+  public function getPDFTransactionURL(BankTransactionInterface $transaction): string{
+    $curl = curl_init();
+
+    curl_setopt_array($curl, [
+      CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/documents/generate",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => '{
+        "template": {
+          "id": "1262536",
+          "data": {
+            "type": "' . $transaction->getTransactionInfo() . '",
+            "amount": ' . $transaction->getAmount() . ',
+            "datetime": "' . $transaction->getDateInfo() . '"
+          }
+        },
+        "format": "pdf",
+        "output": "url",
+        "name": "STUBANK1"
+      }
+      ',
+      CURLOPT_HTTPHEADER => [
+        "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI4NGQ5ZWRjNDVmMmM1OWViNWNkMTdiODA2OGE5NTM1NDQ1ZmE2NGYzNGM5ZDJmZmQ4NDdjYTk5ZTQxODQ2NjUzIiwic3ViIjoibWFydGlkaWNpYW5vbG9sZEBnbWFpbC5jb20iLCJleHAiOjE3MzIxMjMwMDF9.VIQsywzH8xG0xmKetybegndFMbdQiollepqvkQF0_fQ",
+        "Content-Type: application/json"
+      ],
+    ]);
+
+    $response = curl_exec($curl);
+
+    if(curl_errno($curl) || curl_getinfo($curl, CURLINFO_HTTP_CODE) != 200)
+      throw new ApiException("There has been an error getting the conversion rate.");
+
+    curl_close($curl);
+    return json_decode($response,true)["response"];
+  }
 }

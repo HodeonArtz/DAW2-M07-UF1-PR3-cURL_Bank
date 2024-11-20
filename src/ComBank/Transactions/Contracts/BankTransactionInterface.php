@@ -13,9 +13,13 @@ use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
 
 interface BankTransactionInterface
 {
+  const DATETIME_FORMAT = "d-m-Y h:i:sa"; 
+
     public function applyTransaction(BackAccountInterface $account): float;
 
     public function getTransactionInfo(): string;
 
     public function getAmount(): float;
+
+    public function getDateInfo(): string;
 }
