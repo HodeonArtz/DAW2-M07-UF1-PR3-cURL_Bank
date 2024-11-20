@@ -1,0 +1,12 @@
+{
+  "template": {
+    "id": "1262536",
+    "data": {
+      "Name": "Glen Marti",
+      "DueDate": "2024-11-20"
+    }
+  },
+  "format": "pdf",
+  "output": "url",
+  "name": "Certificate Example"
+}
