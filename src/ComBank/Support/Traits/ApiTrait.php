@@ -2,7 +2,9 @@
 
 namespace ComBank\Support\Traits;
 
-use Combank\Exceptions\ApiException;
+use ComBank\Exceptions\ApiException;
+use ComBank\Transactions\Contracts\BankTransactionInterface;
+
 trait ApiTrait
 {
   
@@ -45,5 +47,34 @@ trait ApiTrait
     return $amount * $EURtoUSDRate;
   }
 
+  public function detectFraud(BankTransactionInterface $transaction): bool{
+    $curl = curl_init("https://6734f2655995834c8a9176c7.mockapi.io/api/bank/fraud");
+    curl_setopt_array($curl, [ 
+      CURLOPT_RETURNTRANSFER => true
+    ]);
+
+    $curl_response = curl_exec($curl);
+    if(curl_errno($curl) || curl_getinfo($curl, CURLINFO_HTTP_CODE) != 200)
+      throw new ApiException("There has been an error detecting fraud on the transaction. " . curl_getinfo($curl, CURLINFO_HTTP_CODE));
+
+    curl_close($curl); // Cerrar la sesión
+    $fraudScores = json_decode($curl_response,true);
+    $filteredFraudScores = array_filter(
+      $fraudScores,
+    fn($fraudScore) => $fraudScore["transactionType"] ===   $transaction->getTransactionInfo()
+    );
+
+    usort(
+      $filteredFraudScores,
+        fn($a, $b)=> $b["amount"] <=> $a["amount"]
+    );
+
+    foreach ($filteredFraudScores as $key => $fraudScore) {
+      if($fraudScore["amount"] <= $transaction->getAmount()){
+        return $fraudScore["isAllowed"];
+      }
+    }
+    return false;
+  }
   
 }

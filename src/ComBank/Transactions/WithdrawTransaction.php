@@ -11,14 +11,19 @@ use ComBank\Bank\Contracts\BackAccountInterface;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
+use ComBank\Exceptions\FraudException;
 
 class WithdrawTransaction extends BaseTransaction implements BankTransactionInterface 
 {
   public function __construct(float $amount) {
     $this->validateAmount($amount);
     $this->amount = $amount;
+    if(!$this->detectFraud($this)){
+      throw new FraudException("Transaction detected as fraud!");
+    }
   } 
   public function applyTransaction(BackAccountInterface $account): float{
+
     $accountOverdraft = $account->getOverdraft();
 
     if(!$accountOverdraft->

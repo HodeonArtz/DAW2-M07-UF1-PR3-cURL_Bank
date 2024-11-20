@@ -10,12 +10,16 @@ use ComBank\Exceptions\ZeroAmountException;
 
 use ComBank\Bank\Contracts\BackAccountInterface;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
+use ComBank\Exceptions\FraudException;
 
 class DepositTransaction extends BaseTransaction implements BankTransactionInterface 
 {
    public function __construct(float $amount) {
     $this->validateAmount($amount);
     $this->amount = $amount;
+    if(!$this->detectFraud($this)){
+      throw new FraudException("Transaction detected as fraud!");
+    }
   } 
   public function applyTransaction(BackAccountInterface $account): float{
     $account->setBalance($account->getBalance() + $this->amount);

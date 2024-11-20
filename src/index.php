@@ -8,6 +8,7 @@
  */
 
 use ComBank\Bank\BankAccount;
+use ComBank\Bank\NationalBankAccount;
 use ComBank\Persons\Person;
 use ComBank\Bank\InternationalBankAccount;
 use ComBank\OverdraftStrategy\SilverOverdraft;
@@ -15,6 +16,7 @@ use ComBank\Transactions\DepositTransaction;
 use ComBank\Transactions\WithdrawTransaction;
 use ComBank\Exceptions\BankAccountException;
 use ComBank\Exceptions\FailedTransactionException;
+use ComBank\Exceptions\FraudException;
 use ComBank\Exceptions\InvalidOverdraftFundsException;
 use ComBank\Exceptions\InvalidEmailException;
 use ComBank\Exceptions\ZeroAmountException;
@@ -125,6 +127,7 @@ pl('--------- CURRENCY API TEST --------');
 $currenciesBankAccount = new InternationalBankAccount(100);
 pl("Current international balance: " . $currenciesBankAccount->getBalance() .  "€");
 pl("Currency: " . $currenciesBankAccount->getConvertedCurrency());
+// UNCOMMENT TO TEST
 // pl( "Converted balance (to USD): ".$currenciesBankAccount->getConvertedBalance() . "$");
 
 pl('--------- EMAIL API TEST --------');
@@ -138,4 +141,33 @@ try {
   pl("New Person: name = {$emailPerson1->getName()}, idCard = {$emailPerson1->getIdCard()}, email = {$emailPerson1->getEmail()}");
 } catch (InvalidEmailException $e) {
   pl("Invalid e-mail: {$e->getMessage()}");
+}
+
+pl('--------- TRANSACTION API TEST --------');
+$fraudBankAccount = new NationalBankAccount(20000);
+pl("My balance : {$fraudBankAccount->getBalance()}");
+
+pl('Doing transaction deposit (+19999) with current balance ' . $fraudBankAccount->getBalance());
+$fraudBankAccount->transaction(new DepositTransaction(19999));
+pl('My new balance after deposit (+19999) : ' . $fraudBankAccount->getBalance());
+
+pl('Doing transaction deposit (+20000) with current balance ' . $fraudBankAccount->getBalance());
+try {
+  $fraudBankAccount->transaction(new DepositTransaction(20000));
+  pl('My new balance after deposit (+20000) : ' . $fraudBankAccount->getBalance());
+} catch (FraudException $e) {
+  pl("Error: {$e->getMessage()}");
+}
+
+pl('Doing transaction withdraw (-4999) with current balance ' . $fraudBankAccount->getBalance());
+$fraudBankAccount->transaction(new WithdrawTransaction(4999));
+pl('My new balance after deposit (-4999) : ' . $fraudBankAccount->getBalance());
+
+pl('Doing transaction deposit (-5000) with current balance ' . $fraudBankAccount->getBalance());
+try {
+  $fraudBankAccount->transaction(new WithdrawTransaction(5000));
+
+  pl('My new balance after deposit (-5000) : ' . $fraudBankAccount->getBalance());
+} catch (FraudException $e) {
+  pl("Error: {$e->getMessage()}");
 }
