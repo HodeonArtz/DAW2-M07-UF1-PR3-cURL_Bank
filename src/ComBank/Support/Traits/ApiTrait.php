@@ -116,7 +116,7 @@ trait ApiTrait
       }
       ',
       CURLOPT_HTTPHEADER => [
-        "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI4NGQ5ZWRjNDVmMmM1OWViNWNkMTdiODA2OGE5NTM1NDQ1ZmE2NGYzNGM5ZDJmZmQ4NDdjYTk5ZTQxODQ2NjUzIiwic3ViIjoibWFydGlkaWNpYW5vbG9sZEBnbWFpbC5jb20iLCJleHAiOjE3MzIyMDQyOTZ9.QEiny4vv1zkQLd4XjnQv91c3qIxNBcwRcZ3sNqebUMQ",
+        "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI4NGQ5ZWRjNDVmMmM1OWViNWNkMTdiODA2OGE5NTM1NDQ1ZmE2NGYzNGM5ZDJmZmQ4NDdjYTk5ZTQxODQ2NjUzIiwic3ViIjoibWFydGlkaWNpYW5vbG9sZEBnbWFpbC5jb20iLCJleHAiOjE3MzIyMDk0NzJ9.KZY_1p6B07aSRReMZIBcUUKfWUC6zbxytV6m49c-jDw",
         "Content-Type: application/json"
       ],
     ]);
