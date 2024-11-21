@@ -127,7 +127,7 @@ pl("Creating national bank account with balance (100)...");
 $nationalBankAccount = new NationalBankAccount(100);
 
 pl("National Bank account currency: {$nationalBankAccount->getConvertedCurrency()}");
-pl("Current international balance: " . $nationalBankAccount->getBalance() .  "€");
+pl("Current national balance: " . $nationalBankAccount->getBalance() .  "€");
 
 
 
