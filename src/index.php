@@ -135,7 +135,7 @@ $currenciesBankAccount = new InternationalBankAccount(100);
 pl("Current international balance: " . $currenciesBankAccount->getBalance() .  "€");
 pl("Currency: " . $currenciesBankAccount->getConvertedCurrency());
 // UNCOMMENT TO TEST
-// pl( "Converted balance (to USD): ".$currenciesBankAccount->getConvertedBalance() . "$");
+ pl( "Converted balance (to USD): ".$currenciesBankAccount->getConvertedBalance() . "$");
 
 pl('--------- EMAIL API TEST --------');
 pl("Creating a person with next data: name = Rasmus, idCard = 481J, email = st2021096@365.stucom.com");
