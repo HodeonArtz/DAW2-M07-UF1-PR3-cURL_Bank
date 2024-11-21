@@ -115,6 +115,7 @@ trait ApiTrait
         "name": "STUBANK1"
       }
       ',
+      // API KEY COULD CHANGE IN THE FUTURE
       CURLOPT_HTTPHEADER => [
         "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI4NGQ5ZWRjNDVmMmM1OWViNWNkMTdiODA2OGE5NTM1NDQ1ZmE2NGYzNGM5ZDJmZmQ4NDdjYTk5ZTQxODQ2NjUzIiwic3ViIjoibWFydGlkaWNpYW5vbG9sZEBnbWFpbC5jb20iLCJleHAiOjE3MzIyMDk0NzJ9.KZY_1p6B07aSRReMZIBcUUKfWUC6zbxytV6m49c-jDw",
         "Content-Type: application/json"
