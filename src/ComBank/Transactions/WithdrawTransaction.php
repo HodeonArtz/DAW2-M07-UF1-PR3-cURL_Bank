@@ -51,4 +51,7 @@ class WithdrawTransaction extends BaseTransaction implements BankTransactionInte
     public function getDateInfo(): string{
       return $this->date;
     }
+    public function getPDF(): string {
+      return $this->getPDFTransactionURL($this);
+    }
 }

@@ -2,10 +2,8 @@
   "template": {
     "id": "1262536",
     "data": {
-      "type": "TRANSACTION",
-      "amount": 0,
-      "datetime": "Wed Nov 20 2024 17:02:21 GMT+0100",
-      "isFraud": false
+      "Name": "Glen Marti",
+      "DueDate": "2024-11-20"
     }
   },
   "format": "pdf",

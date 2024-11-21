@@ -123,6 +123,13 @@ try {
 }
 
 pl('--------- CURRENCY API TEST --------');
+pl("Creating national bank account with balance (100)...");
+$nationalBankAccount = new NationalBankAccount(100);
+
+pl("National Bank account currency: {$nationalBankAccount->getConvertedCurrency()}");
+pl("Current international balance: " . $currenciesBankAccount->getBalance() .  "€");
+
+
 
 $currenciesBankAccount = new InternationalBankAccount(100);
 pl("Current international balance: " . $currenciesBankAccount->getBalance() .  "€");
@@ -171,3 +178,15 @@ try {
 } catch (FraudException $e) {
   pl("Error: {$e->getMessage()}");
 }
+
+pl('--------- FREE FUNCTIONALITY API TEST --------');
+$pdfBankAccount = new InternationalBankAccount(200);
+
+$depositTransaction1 = new DepositTransaction(100);
+
+pl('Doing transaction deposit (+100) with current balance ' . $fraudBankAccount->getBalance());
+$fraudBankAccount->transaction($depositTransaction1);
+pl('My new balance after deposit (+100) : ' . $fraudBankAccount->getBalance());
+
+echo "Download Transaction PDF: ";
+echo "<a href='{$depositTransaction1->getPDF()}' >Link</a>";

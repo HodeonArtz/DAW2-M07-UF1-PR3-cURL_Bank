@@ -88,6 +88,19 @@ trait ApiTrait
       CURLOPT_TIMEOUT => 30,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => "POST",
+      /* CURLOPT_POSTFIELDS => '{
+        "template": {
+          "id": "1262536",
+          "data": {
+            "Name": "Glen Marti",
+            "DueDate": "2024-11-20"
+          }
+        },
+        "format": "pdf",
+        "output": "url",
+        "name": "STUBANK1"
+      }
+      ', */
       CURLOPT_POSTFIELDS => '{
         "template": {
           "id": "1262536",
@@ -103,15 +116,16 @@ trait ApiTrait
       }
       ',
       CURLOPT_HTTPHEADER => [
-        "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI4NGQ5ZWRjNDVmMmM1OWViNWNkMTdiODA2OGE5NTM1NDQ1ZmE2NGYzNGM5ZDJmZmQ4NDdjYTk5ZTQxODQ2NjUzIiwic3ViIjoibWFydGlkaWNpYW5vbG9sZEBnbWFpbC5jb20iLCJleHAiOjE3MzIxMjMwMDF9.VIQsywzH8xG0xmKetybegndFMbdQiollepqvkQF0_fQ",
+        "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI4NGQ5ZWRjNDVmMmM1OWViNWNkMTdiODA2OGE5NTM1NDQ1ZmE2NGYzNGM5ZDJmZmQ4NDdjYTk5ZTQxODQ2NjUzIiwic3ViIjoibWFydGlkaWNpYW5vbG9sZEBnbWFpbC5jb20iLCJleHAiOjE3MzIyMDQyOTZ9.QEiny4vv1zkQLd4XjnQv91c3qIxNBcwRcZ3sNqebUMQ",
         "Content-Type: application/json"
       ],
     ]);
 
     $response = curl_exec($curl);
+    $curl_error = curl_error($curl);
 
-    if(curl_errno($curl) || curl_getinfo($curl, CURLINFO_HTTP_CODE) != 200)
-      throw new ApiException("There has been an error getting the conversion rate.");
+    /* if(curl_errno($curl) || curl_getinfo($curl, CURLINFO_HTTP_CODE) != 200)
+      throw new ApiException($curl_error); */
 
     curl_close($curl);
     return json_decode($response,true)["response"];

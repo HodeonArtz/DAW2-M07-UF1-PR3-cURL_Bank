@@ -40,4 +40,8 @@ class DepositTransaction extends BaseTransaction implements BankTransactionInter
     public function getDateInfo(): string{
       return $this->date;
     }
+
+    public function getPDF(): string {
+      return $this->getPDFTransactionURL($this);
+    }
 }
